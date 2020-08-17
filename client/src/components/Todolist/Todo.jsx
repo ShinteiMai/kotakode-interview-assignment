@@ -2,54 +2,24 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Formik, Field } from "formik";
 import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
-import {
-  ListItem,
-  Button,
-  Input,
-  Box,
-  Icon,
-  Text,
-  Tooltip,
-} from "@chakra-ui/core";
-import { AiFillFlag, AiFillEdit, AiOutlineClose } from "react-icons/ai";
+import { ListItem, Input, Box, Text } from "@chakra-ui/core";
+import { AiFillEdit, AiOutlineClose } from "react-icons/ai";
 import { FaRegCircle } from "react-icons/fa";
+
+import "react-dropdown/style.css";
 
 export const taskPlaceholderValue = {
   unfocused: "Click here to add a task!",
   focused: "Add a task!",
 };
 
-const colors = ["red.500", "orange.300", "yellow.200", "green.400"];
-
-const options = [1, 2, 3, 4];
-const defaultOption = options[0];
+const colors = ["red.500", "orange.300", "yellow.300", "green.400"];
 
 const Todo = ({ updateTodo, deleteTodo, task, index }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isSettingOpen, setIsSettingOpen] = useState(false);
   const [placeholder, setPlaceholder] = useState(
     taskPlaceholderValue.unfocused
   );
-
-  let priorityColor;
-  switch (task.priority) {
-    case 1:
-      priorityColor = colors[0];
-      break;
-    case 2:
-      priorityColor = colors[1];
-      break;
-    case 3:
-      priorityColor = colors[2];
-      break;
-    case 4:
-      priorityColor = colors[3];
-
-      break;
-    default:
-      priorityColor = colors[0];
-  }
 
   return (
     <ListItem>
@@ -73,7 +43,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                     cursor: "pointer",
                   }}
                   as={FaRegCircle}
-                  color={values.priority}
+                  color={colors[values.priority - 1]}
                   onClick={() => deleteTodo(index)}
                 />
               </Box>
@@ -97,29 +67,32 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                   </Box>
                 )}
               </Box>
+              {isEditing ? (
+                <Box>
+                  <Dropdown
+                    options={[1, 2, 3, 4]}
+                    onChange={(option) => {
+                      setFieldValue("priority", option.value);
+                    }}
+                    placeholder="Priority"
+                  />
+                </Box>
+              ) : (
+                <Box></Box>
+              )}
+              <Box></Box>
               <Box
                 style={{
                   cursor: "pointer",
                 }}
               >
-                <Tooltip label={isEditing ? "Save task" : "Edit task"}>
-                  <Box
-                    as={isEditing ? AiOutlineClose : AiFillEdit}
-                    onClick={() => {
-                      setIsEditing(!isEditing);
-                    }}
-                  />
-                </Tooltip>
-              </Box>
-              {/* <Box>
-                <Dropdown
-                  options={options}
-                  onChange={(selectedOption) => {
-                    setFieldValue("priority", selectedOption);
+                <Box
+                  as={isEditing ? AiOutlineClose : AiFillEdit}
+                  onClick={() => {
+                    setIsEditing(!isEditing);
                   }}
-                  value={defaultOption}
                 />
-              </Box> */}
+              </Box>
             </Box>
           </form>
         )}
