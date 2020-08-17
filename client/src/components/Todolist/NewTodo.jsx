@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik, Field } from "formik";
-import { Button, Box } from "@chakra-ui/core";
+import { Button, Box, Input } from "@chakra-ui/core";
 import {
   submitTodoButtonComponent,
   addTodoFormComponent,
@@ -17,16 +17,23 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => (
   >
     {({ handleSubmit }) => (
       <form onSubmit={handleSubmit} data-test={addTodoFormComponent}>
-        <Box>
-          <Field placeholder="e.g. Wash dishes" type="text" name="task" />
-          <Button type="submit">Add task</Button>
+        <Box display="flex" alignItems="top" mx="auto" justifyContent="center">
+          <Box>
+            <Field
+              placeholder="e.g. Wash dishes"
+              type="text"
+              name="task"
+              as={Input}
+            />
+            <Button type="submit">Add task</Button>
+          </Box>
+          <Button
+            data-test={submitTodoButtonComponent}
+            onClick={() => setIsAddingTodo(false)}
+          >
+            Cancel
+          </Button>
         </Box>
-        <Button
-          data-test={submitTodoButtonComponent}
-          onClick={() => setIsAddingTodo(false)}
-        >
-          Cancel
-        </Button>
       </form>
     )}
   </Formik>
