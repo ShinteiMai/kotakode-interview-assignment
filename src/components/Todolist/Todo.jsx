@@ -101,10 +101,9 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                   ml={4}
                 >
                   <Box
+                    size={5}
                     as={isEditing ? AiFillSave : AiFillEdit}
-                    onClick={() => {
-                      setIsEditing(!isEditing);
-                    }}
+                    onClick={() => setIsEditing(!isEditing)}
                   />
                 </Box>
               </Box>
