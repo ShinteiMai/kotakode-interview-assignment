@@ -1,3 +1,16 @@
 {
-  "tasks": ["Wash the dishes", "Cook a meal"]
+  "tasks": [
+    {
+      "task": "Wash the dishes",
+      "priority": 2
+    },
+    {
+      "task": "Doing math homework",
+      "priority": 1
+    },
+    {
+      "task": "Read: The Alchemist by Paulo Coelho",
+      "priority": 4
+    }
+  ]
 }

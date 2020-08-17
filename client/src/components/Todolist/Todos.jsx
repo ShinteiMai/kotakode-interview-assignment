@@ -26,7 +26,6 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
           <List
             {...provided.droppableProps}
             ref={provided.innerRef}
-            spacing={3}
             test={todosContainerComponent}
           >
             {todos.map((todo, index) => (
