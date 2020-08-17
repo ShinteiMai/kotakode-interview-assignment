@@ -1,39 +1,68 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { List, Button } from "@chakra-ui/core";
+import { List, Button, Box } from "@chakra-ui/core";
 
 import Todo from "./Todo";
+import NewTodo from "./NewTodo";
+
+import {
+  todosComponent,
+  todosContainerComponent,
+  addButtonComponent,
+  addTodoButtonComponent,
+  newTodoComponent,
+} from "../../utils/testConstants";
 
 const Todolist = ({ tasks }) => {
   const [todos, setTodos] = useState(tasks);
+  const [isAddingTodo, setIsAddingTodo] = useState(false);
 
-  const mutateTodos = (index, task) => {
+  const createTodo = (task) => setTodos(todos.concat(task));
+
+  const updateTodo = (index, task) => {
     const newTodos = [...todos];
     newTodos[index] = task;
     setTodos(newTodos);
   };
 
-  console.log(todos);
+  const deleteTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
 
   return (
     <>
-      <div>A todolist!</div>
-      <div>
-        <List spacing={3}>
+      <Box mx="auto" my={10}>
+        <List spacing={3} test={todosContainerComponent}>
           {todos.map((todo, index) => (
             <Todo
+              test={todosComponent}
               key={index}
-              mutateTodos={mutateTodos}
+              updateTodos={updateTodo}
+              deleteTodo={deleteTodo}
               task={todo}
               index={index}
             />
           ))}
         </List>
-      </div>
-      <Button variantColor="teal" onClick={() => setTodos(todos.concat(""))}>
-        Add a new task
-      </Button>
+      </Box>
+      {isAddingTodo ? (
+        <NewTodo
+          test={newTodoComponent}
+          createTodo={createTodo}
+          setIsAddingTodo={setIsAddingTodo}
+        />
+      ) : (
+        <Button
+          test={addTodoButtonComponent}
+          variantColor="teal"
+          onClick={() => setIsAddingTodo(true)}
+        >
+          Add a task
+        </Button>
+      )}
     </>
   );
 };

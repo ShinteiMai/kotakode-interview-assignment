@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Formik, Field } from "formik";
-import { ListItem } from "@chakra-ui/core";
+import { ListItem, Button } from "@chakra-ui/core";
 
 export const taskPlaceholderValue = {
   unfocused: "Click here to add a task!",
   focused: "Add a task!",
 };
 
-const Todo = ({ mutateTodos, task, index }) => {
+const Todo = ({ updateTodo, deleteTodo, task, index }) => {
   const [placeholder, setPlaceholder] = useState(
     taskPlaceholderValue.unfocused
   );
@@ -20,7 +20,7 @@ const Todo = ({ mutateTodos, task, index }) => {
           task,
         }}
         onSubmit={({ task }) => {
-          mutateTodos(index, task);
+          updateTodo(index, task);
         }}
       >
         {({ handleSubmit }) => (
@@ -36,6 +36,7 @@ const Todo = ({ mutateTodos, task, index }) => {
                 setPlaceholder(taskPlaceholderValue.unfocused);
               }}
             />
+            <Button onClick={() => deleteTodo(index)}>Delete</Button>
           </form>
         )}
       </Formik>
@@ -44,7 +45,8 @@ const Todo = ({ mutateTodos, task, index }) => {
 };
 
 Todo.propTypes = {
-  mutateTodos: PropTypes.func,
+  updateTodos: PropTypes.func,
+  deleteTodo: PropTypes.func,
   task: PropTypes.string,
   index: PropTypes.number,
 };
