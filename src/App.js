@@ -1,7 +1,6 @@
 import React from "react";
 import Todolist from "./components/Todolist/Todolist";
 import { Text, Box } from "@chakra-ui/core";
-import moment from "moment";
 
 import { tasks } from "./data/data.json";
 

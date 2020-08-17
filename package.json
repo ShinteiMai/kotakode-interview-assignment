@@ -19,10 +19,12 @@
     "react-dropdown": "^1.7.0",
     "react-icons": "^3.10.0",
     "react-scripts": "3.4.1",
+    "serve": "^11.3.2",
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
