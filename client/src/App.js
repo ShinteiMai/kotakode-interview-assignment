@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Text fontSize="5xl">Eat the Frog</Text>
+      <Text fontSize="5xl">Housework 🧹</Text>
       <Todolist tasks={tasks} />
     </div>
   );

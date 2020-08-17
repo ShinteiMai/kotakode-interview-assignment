@@ -12,6 +12,7 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => (
     initialValues={{ task: "" }}
     onSubmit={({ task }) => {
       createTodo(task);
+      setIsAddingTodo(false);
     }}
   >
     {({ handleSubmit }) => (

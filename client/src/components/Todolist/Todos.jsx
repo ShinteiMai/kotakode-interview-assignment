@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { List } from "@chakra-ui/core";
+import { List, Box } from "@chakra-ui/core";
 
 import Todo from "./Todo";
 
@@ -32,20 +32,21 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
             {todos.map((todo, index) => (
               <Draggable key={todo.id} draggableId={todo.id} index={index}>
                 {(provided) => (
-                  <div
+                  <Box
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
+                    mb={4}
                   >
                     <Todo
                       test={todosComponent}
                       key={index}
                       updateTodos={updateTodo}
                       deleteTodo={deleteTodo}
-                      task={todo.task}
+                      task={todo}
                       index={index}
                     />
-                  </div>
+                  </Box>
                 )}
               </Draggable>
             ))}
@@ -56,8 +57,6 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
   );
 };
 
-Todos.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+Todos.propTypes = {};
 
 export default Todos;
