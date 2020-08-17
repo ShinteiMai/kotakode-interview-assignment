@@ -1,28 +1,34 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { List, Button, Box } from "@chakra-ui/core";
-
-import Todo from "./Todo";
-import NewTodo from "./NewTodo";
+import { Button, Box } from "@chakra-ui/core";
 
 import {
-  todosComponent,
-  todosContainerComponent,
-  addButtonComponent,
   addTodoButtonComponent,
   newTodoComponent,
 } from "../../utils/testConstants";
 
+import NewTodo from "./NewTodo";
+import Todos from "./Todos";
+
 const Todolist = ({ tasks }) => {
-  const [todos, setTodos] = useState(tasks);
+  const [todos, setTodos] = useState(
+    tasks.map((task, index) => {
+      return {
+        id: `item-${index}`,
+        task,
+        priority: 1,
+      };
+    })
+  );
   const [isAddingTodo, setIsAddingTodo] = useState(false);
 
-  const createTodo = (task) => setTodos(todos.concat(task));
+  const createTodo = (task) =>
+    setTodos(todos.concat({ id: `item-${todos.length + 1}`, task }));
 
   const updateTodo = (index, task) => {
     const newTodos = [...todos];
-    newTodos[index] = task;
+    newTodos[index] = { ...newTodos[index], task };
     setTodos(newTodos);
   };
 
@@ -35,18 +41,12 @@ const Todolist = ({ tasks }) => {
   return (
     <>
       <Box mx="auto" my={10}>
-        <List spacing={3} test={todosContainerComponent}>
-          {todos.map((todo, index) => (
-            <Todo
-              test={todosComponent}
-              key={index}
-              updateTodos={updateTodo}
-              deleteTodo={deleteTodo}
-              task={todo}
-              index={index}
-            />
-          ))}
-        </List>
+        <Todos
+          todos={todos}
+          setTodos={setTodos}
+          updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
+        />
       </Box>
       {isAddingTodo ? (
         <NewTodo
@@ -68,7 +68,7 @@ const Todolist = ({ tasks }) => {
 };
 
 Todolist.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.string),
+  tasks: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Todolist;
