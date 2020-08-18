@@ -8,12 +8,11 @@ import { FaRegCircle } from "react-icons/fa";
 
 import "react-dropdown/style.css";
 
+const colors = ["red.500", "orange.300", "yellow.300", "green.400"];
 export const taskPlaceholderValue = {
   unfocused: "Click here to add a task!",
   focused: "Add a task!",
 };
-
-const colors = ["red.500", "orange.300", "yellow.300", "green.400"];
 
 const Todo = ({ updateTodo, deleteTodo, task, index }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -116,9 +115,14 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
 };
 
 Todo.propTypes = {
-  updateTodos: PropTypes.func,
-  deleteTodo: PropTypes.func,
-  index: PropTypes.number,
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    task: PropTypes.string.isRequired,
+    priority: PropTypes.number.isRequired,
+  }).isRequired,
+  updateTodos: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default Todo;

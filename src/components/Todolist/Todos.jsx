@@ -56,6 +56,17 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
   );
 };
 
-Todos.propTypes = {};
+Todos.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      task: PropTypes.string.isRequired,
+      priority: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  setTodos: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+};
 
 export default Todos;

@@ -79,8 +79,8 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
 };
 
 NewTodo.propTypes = {
-  createTodo: PropTypes.func,
-  setIsAddingTodo: PropTypes.func,
+  createTodo: PropTypes.func.isRequired,
+  setIsAddingTodo: PropTypes.func.isRequired,
 };
 
 export default NewTodo;

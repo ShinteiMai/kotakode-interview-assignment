@@ -6,11 +6,6 @@ import moment from "moment";
 import { Text, Button, Box, Divider } from "@chakra-ui/core";
 import { AiOutlinePlus } from "react-icons/ai";
 
-import {
-  addTodoButtonComponent,
-  newTodoComponent,
-} from "../../utils/testConstants";
-
 import NewTodo from "./NewTodo";
 import Todos from "./Todos";
 
@@ -48,14 +43,9 @@ const Todolist = ({ tasks }) => {
           {moment().format("dddd, MMMM Do YYYY")}
         </Text>
         {isAddingTodo ? (
-          <NewTodo
-            test={newTodoComponent}
-            createTodo={createTodo}
-            setIsAddingTodo={setIsAddingTodo}
-          />
+          <NewTodo createTodo={createTodo} setIsAddingTodo={setIsAddingTodo} />
         ) : (
           <Button
-            test={addTodoButtonComponent}
             leftIcon={AiOutlinePlus}
             variantColor="yellow"
             variant="outline"
@@ -79,7 +69,12 @@ const Todolist = ({ tasks }) => {
 };
 
 Todolist.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      task: PropTypes.string.isRequired,
+      priority: PropTypes.number.isRequired,
+    })
+  ),
 };
 
 export default Todolist;
