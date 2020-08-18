@@ -12,6 +12,11 @@ import {
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { reorder } from "../../utils/reorder";
 
+const getItemStyle = (isDragging, draggableStyle) => ({
+  userSelect: "none",
+  ...draggableStyle,
+});
+
 const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
   return (
     <DragDropContext
@@ -21,7 +26,7 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
         setTodos(reorder(todos, source.index, destination.index));
       }}
     >
-      <Droppable droppableId="droppable">
+      <Droppable droppableId="droppable-1">
         {(provided) => (
           <List
             {...provided.droppableProps}
@@ -30,8 +35,12 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
           >
             {todos.map((todo, index) => (
               <Draggable key={todo.id} draggableId={todo.id} index={index}>
-                {(provided) => (
+                {(provided, snapshot) => (
                   <Box
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
@@ -40,7 +49,7 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
                     <Todo
                       test={todosComponent}
                       key={index}
-                      updateTodos={updateTodo}
+                      updateTodo={updateTodo}
                       deleteTodo={deleteTodo}
                       task={todo}
                       index={index}
@@ -49,6 +58,7 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
                 )}
               </Draggable>
             ))}
+            {provided.placeholder}
           </List>
         )}
       </Droppable>

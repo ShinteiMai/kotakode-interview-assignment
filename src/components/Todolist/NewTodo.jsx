@@ -12,21 +12,22 @@ import {
 
 import "react-dropdown/style.css";
 import Flags from "../Flags";
+import { todoSchema } from "../../schema/taskSchema";
 
 const priorityFlags = Flags();
-
 const NewTodo = ({ createTodo, setIsAddingTodo }) => {
   const [isPriorityTouched, setIsPriorityTouched] = useState(false);
 
   return (
     <Formik
-      initialValues={{ task: "", priority: 4 }}
+      initialValues={{ task: "", priority: "" }}
       onSubmit={({ task, priority }) => {
         createTodo(task, priority);
         setIsAddingTodo(false);
       }}
+      validationSchema={todoSchema}
     >
-      {({ handleSubmit, setFieldValue, values }) => (
+      {({ handleSubmit, errors, touched, setFieldValue, values }) => (
         <form onSubmit={handleSubmit} data-test={addTodoFormComponent}>
           <Box
             display="flex"
@@ -43,6 +44,17 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
                   name="task"
                   as={Input}
                 />
+                {errors.task && touched.task ? (
+                  <Box
+                    display="inline-block"
+                    fontWeight="500"
+                    color="red.500"
+                    ml={4}
+                    mt={2}
+                  >
+                    {errors.task}
+                  </Box>
+                ) : null}
               </Box>
               <Box mb={4}>
                 <Dropdown
@@ -57,6 +69,17 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
                       : "Priority"
                   }
                 />
+                {errors.priority && touched.priority ? (
+                  <Box
+                    ml={4}
+                    mt={2}
+                    fontWeight="500"
+                    display="inline-block"
+                    color="red.500"
+                  >
+                    {errors.priority}
+                  </Box>
+                ) : null}
               </Box>
             </Box>
             <ButtonGroup>

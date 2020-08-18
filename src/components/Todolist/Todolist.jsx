@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 
 import { Text, Button, Box, Divider } from "@chakra-ui/core";
-import { AiOutlinePlus } from "react-icons/ai";
+import { FiPlus } from "react-icons/fi";
 
 import NewTodo from "./NewTodo";
 import Todos from "./Todos";
@@ -46,7 +46,7 @@ const Todolist = ({ tasks }) => {
           <NewTodo createTodo={createTodo} setIsAddingTodo={setIsAddingTodo} />
         ) : (
           <Button
-            leftIcon={AiOutlinePlus}
+            leftIcon={FiPlus}
             variantColor="yellow"
             variant="outline"
             onClick={() => setIsAddingTodo(true)}

@@ -8,6 +8,7 @@ import { FaRegCircle } from "react-icons/fa";
 import Flags from "../Flags";
 
 import "react-dropdown/style.css";
+import { todoSchema } from "../../schema/taskSchema";
 
 const colors = ["red.500", "orange.300", "yellow.300", "green.400"];
 export const taskPlaceholderValue = {
@@ -31,9 +32,19 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
           task: task.task,
           priority: task.priority,
         }}
-        onSubmit={({ task, priority }) => updateTodo(index, task, priority)}
+        onSubmit={({ task, priority }) => {
+          updateTodo(index, task, priority);
+        }}
+        validationSchema={todoSchema}
       >
-        {({ handleSubmit, values, setFieldValue }) => (
+        {({
+          handleSubmit,
+          values,
+          setFieldValue,
+          errors,
+          touched,
+          submitForm,
+        }) => (
           <form onSubmit={handleSubmit}>
             <Box
               display="flex"
@@ -43,7 +54,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
               <Box
                 display="flex"
                 alignItems="center"
-                w={["80%", "60%", "40%"]}
+                w={["100%", "60%", "40%"]}
                 mb={[3, 0]}
               >
                 <Box>
@@ -60,18 +71,20 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                 </Box>
                 <Box display="flex" alignItems="center" mr={4} w="80%">
                   {isEditing ? (
-                    <Field
-                      type="text"
-                      name="task"
-                      as={Input}
-                      placeholder={placeholder}
-                      onFocus={() => {
-                        setPlaceholder(taskPlaceholderValue.focused);
-                      }}
-                      onBlur={() => {
-                        setPlaceholder(taskPlaceholderValue.unfocused);
-                      }}
-                    />
+                    <Box>
+                      <Field
+                        type="text"
+                        name="task"
+                        as={Input}
+                        placeholder={placeholder}
+                        onFocus={() => {
+                          setPlaceholder(taskPlaceholderValue.focused);
+                        }}
+                        onBlur={() => {
+                          setPlaceholder(taskPlaceholderValue.unfocused);
+                        }}
+                      />
+                    </Box>
                   ) : (
                     <Box>
                       <Text>{values.task}</Text>
@@ -107,10 +120,23 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                   <Box
                     size={5}
                     as={isEditing ? AiFillSave : AiFillEdit}
-                    onClick={() => setIsEditing(!isEditing)}
+                    onClick={() => {
+                      if (isEditing) submitForm();
+                      if (!errors.task && !errors.priority) {
+                        setIsEditing(!isEditing);
+                      }
+                    }}
                   />
                 </Box>
               </Box>
+            </Box>
+            <Box ml={8}>
+              {errors.task && touched.task ? (
+                <Text color="red.500">{errors.task}</Text>
+              ) : null}
+              {errors.priority && touched.priority ? (
+                <Text color="red.500">{errors.priority}</Text>
+              ) : null}
             </Box>
           </form>
         )}
@@ -125,7 +151,7 @@ Todo.propTypes = {
     task: PropTypes.string.isRequired,
     priority: PropTypes.number.isRequired,
   }).isRequired,
-  updateTodos: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
 };
