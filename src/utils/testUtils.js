@@ -1,7 +1,6 @@
-import theme from "@chakra-ui/theme";
+import { theme } from "@chakra-ui/core";
 import { GlobalStyle, ThemeProvider } from "@chakra-ui/system";
 import CSSReset from "@chakra-ui/css-reset";
-import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import { toHaveNoViolations } from "jest-axe";
@@ -39,7 +38,3 @@ export * from "jest-axe";
 
 export const escape = (ui) =>
   fireEvent.keyDown(ui, { key: "Escape", keyCode: 27 });
-
-export const findComponent = (wrapper, value) => {
-  return wrapper.find({ test: value });
-};

@@ -9,6 +9,7 @@ import Flags from "../Flags";
 
 import "react-dropdown/style.css";
 import { todoSchema } from "../../schema/taskSchema";
+import { todosComponent } from "../../utils/testConstants";
 
 const colors = ["red.500", "orange.300", "yellow.300", "green.400"];
 export const taskPlaceholderValue = {
@@ -26,7 +27,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
   );
 
   return (
-    <ListItem>
+    <ListItem data-testid={todosComponent}>
       <Formik
         initialValues={{
           task: task.task,
@@ -54,7 +55,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
               <Box
                 display="flex"
                 alignItems="center"
-                w={["100%", "60%", "40%"]}
+                w={["100%", "60%", "50%"]}
                 mb={[3, 0]}
               >
                 <Box>

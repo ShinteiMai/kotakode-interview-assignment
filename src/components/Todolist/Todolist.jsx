@@ -8,6 +8,10 @@ import { FiPlus } from "react-icons/fi";
 
 import NewTodo from "./NewTodo";
 import Todos from "./Todos";
+import {
+  addTodoButtonComponent,
+  newTodoComponent,
+} from "../../utils/testConstants";
 
 const Todolist = ({ tasks }) => {
   const [todos, setTodos] = useState(
@@ -19,6 +23,7 @@ const Todolist = ({ tasks }) => {
       };
     })
   );
+
   const [isAddingTodo, setIsAddingTodo] = useState(false);
 
   const createTodo = (task, priority) =>
@@ -46,6 +51,7 @@ const Todolist = ({ tasks }) => {
           <NewTodo createTodo={createTodo} setIsAddingTodo={setIsAddingTodo} />
         ) : (
           <Button
+            data-testid={addTodoButtonComponent}
             leftIcon={FiPlus}
             variantColor="yellow"
             variant="outline"

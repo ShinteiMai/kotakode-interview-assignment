@@ -4,11 +4,11 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/css-reset": "^1.0.0-next.3",
+    "@chakra-ui/system": "^1.0.0-next.3",
+    "@chakra-ui/theme": "^1.0.0-next.3",
     "@emotion/core": "^10.0.34",
     "@emotion/styled": "^10.0.27",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "chakra-ui": "^0.3.9",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.5",
@@ -26,7 +26,7 @@
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,7 +45,15 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.22.2",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^10.4.8",
+    "@testing-library/react-hooks": "^3.4.1",
+    "@testing-library/user-event": "^12.1.1",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.3"
+    "enzyme-adapter-react-16": "^1.15.3",
+    "jest-axe": "^3.5.0",
+    "jest-emotion": "^10.0.32",
+    "jest-environment-jsdom-sixteen": "^1.0.3"
   }
 }

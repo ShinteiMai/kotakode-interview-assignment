@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Formik, Field } from "formik";
 import { Button, Box, Input, ButtonGroup } from "@chakra-ui/core";
@@ -7,7 +7,8 @@ import { TiCancel } from "react-icons/ti";
 import Dropdown from "react-dropdown";
 import {
   submitTodoButtonComponent,
-  addTodoFormComponent,
+  newTodoComponent,
+  taskFormComponent,
 } from "../../utils/testConstants";
 
 import "react-dropdown/style.css";
@@ -16,11 +17,9 @@ import { todoSchema } from "../../schema/taskSchema";
 
 const priorityFlags = Flags();
 const NewTodo = ({ createTodo, setIsAddingTodo }) => {
-  const [isPriorityTouched, setIsPriorityTouched] = useState(false);
-
   return (
     <Formik
-      initialValues={{ task: "", priority: "" }}
+      initialValues={{ task: "", priority: 4 }}
       onSubmit={({ task, priority }) => {
         createTodo(task, priority);
         setIsAddingTodo(false);
@@ -28,7 +27,7 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
       validationSchema={todoSchema}
     >
       {({ handleSubmit, errors, touched, setFieldValue, values }) => (
-        <form onSubmit={handleSubmit} data-test={addTodoFormComponent}>
+        <form data-testid={newTodoComponent} onSubmit={handleSubmit}>
           <Box
             display="flex"
             flexDir="column"
@@ -39,6 +38,7 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
             <Box width={["60%", "50%", "40%"]}>
               <Box mb={4}>
                 <Field
+                  data-testid={taskFormComponent}
                   placeholder="e.g. Wash dishes"
                   type="text"
                   name="task"
@@ -61,13 +61,8 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
                   options={[1, 2, 3, 4]}
                   onChange={(option) => {
                     setFieldValue("priority", option.value);
-                    setIsPriorityTouched(true);
                   }}
-                  placeholder={
-                    isPriorityTouched
-                      ? priorityFlags[values.priority - 1]
-                      : "Priority"
-                  }
+                  placeholder={priorityFlags[values.priority - 1]}
                 />
                 {errors.priority && touched.priority ? (
                   <Box
@@ -84,6 +79,7 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
             </Box>
             <ButtonGroup>
               <Button
+                data-testid={submitTodoButtonComponent}
                 type="submit"
                 leftIcon={AiFillSave}
                 variantColor="yellow"
@@ -92,7 +88,6 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
                 Add task
               </Button>
               <Button
-                data-test={submitTodoButtonComponent}
                 leftIcon={TiCancel}
                 variantColor="red"
                 variant="outline"

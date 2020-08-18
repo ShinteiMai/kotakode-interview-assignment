@@ -31,7 +31,7 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
           <List
             {...provided.droppableProps}
             ref={provided.innerRef}
-            test={todosContainerComponent}
+            data-testid={todosContainerComponent}
           >
             {todos.map((todo, index) => (
               <Draggable key={todo.id} draggableId={todo.id} index={index}>
@@ -47,7 +47,6 @@ const Todos = ({ todos, setTodos, updateTodo, deleteTodo }) => {
                     mb={4}
                   >
                     <Todo
-                      test={todosComponent}
                       key={index}
                       updateTodo={updateTodo}
                       deleteTodo={deleteTodo}
