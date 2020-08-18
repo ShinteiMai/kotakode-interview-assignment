@@ -12,7 +12,7 @@ const App = () => {
         <Text fontSize="4xl">
           Housework <Emoji symbol="🧹" label="emoji" />
         </Text>
-        <Text fontSize="2xl">
+        <Text fontSize="lg">
           a dead simple to-do list for your daily needs.
         </Text>
       </Box>

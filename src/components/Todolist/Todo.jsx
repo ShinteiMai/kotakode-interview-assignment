@@ -5,6 +5,7 @@ import Dropdown from "react-dropdown";
 import { ListItem, Input, Box, Text } from "@chakra-ui/core";
 import { AiFillEdit, AiFillSave } from "react-icons/ai";
 import { FaRegCircle } from "react-icons/fa";
+import Flags from "../Flags";
 
 import "react-dropdown/style.css";
 
@@ -13,6 +14,8 @@ export const taskPlaceholderValue = {
   unfocused: "Click here to add a task!",
   focused: "Add a task!",
 };
+
+const priorityFlags = Flags();
 
 const Todo = ({ updateTodo, deleteTodo, task, index }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -86,7 +89,9 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                         setIsPriorityTouched(true);
                       }}
                       placeholder={
-                        isPriorityTouched ? values.priority : "Priority"
+                        isPriorityTouched
+                          ? priorityFlags[values.priority - 1]
+                          : "Priority"
                       }
                     />
                   </Box>

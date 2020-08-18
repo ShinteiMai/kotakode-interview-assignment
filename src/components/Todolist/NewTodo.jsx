@@ -11,6 +11,9 @@ import {
 } from "../../utils/testConstants";
 
 import "react-dropdown/style.css";
+import Flags from "../Flags";
+
+const priorityFlags = Flags();
 
 const NewTodo = ({ createTodo, setIsAddingTodo }) => {
   const [isPriorityTouched, setIsPriorityTouched] = useState(false);
@@ -48,7 +51,11 @@ const NewTodo = ({ createTodo, setIsAddingTodo }) => {
                     setFieldValue("priority", option.value);
                     setIsPriorityTouched(true);
                   }}
-                  placeholder={isPriorityTouched ? values.priority : "Priority"}
+                  placeholder={
+                    isPriorityTouched
+                      ? priorityFlags[values.priority - 1]
+                      : "Priority"
+                  }
                 />
               </Box>
             </Box>
