@@ -9,7 +9,12 @@ import Flags from "../Flags";
 
 import "react-dropdown/style.css";
 import { todoSchema } from "../../schema/taskSchema";
-import { todosComponent } from "../../utils/testConstants";
+import {
+  todosComponent,
+  deleteTodoButtonComponent,
+  updateTodoButtonComponent,
+  updateTaskFormComponent,
+} from "../../utils/testConstants";
 
 const colors = ["red.500", "orange.300", "yellow.300", "green.400"];
 export const taskPlaceholderValue = {
@@ -60,6 +65,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
               >
                 <Box>
                   <Box
+                    data-testid={deleteTodoButtonComponent}
                     style={{
                       cursor: "pointer",
                     }}
@@ -74,6 +80,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                   {isEditing ? (
                     <Box>
                       <Field
+                        data-testid={updateTaskFormComponent}
                         type="text"
                         name="task"
                         as={Input}
@@ -119,6 +126,7 @@ const Todo = ({ updateTodo, deleteTodo, task, index }) => {
                   ml={4}
                 >
                   <Box
+                    data-testid={updateTodoButtonComponent}
                     size={5}
                     as={isEditing ? AiFillSave : AiFillEdit}
                     onClick={() => {
